@@ -4,6 +4,7 @@ var forever     = require('forever'),
     outFile     = undefined,
     errFile     = undefined,
     logFile     = undefined,
+    pidFile     = undefined,
     killSignal  = 'SIGKILL',
     commandName = 'node',
     commandMap  = {
@@ -102,6 +103,7 @@ function startForeverWithIndex( index, doneCB ) {
       appendConfig('errFile', errFile);
       appendConfig('outFile', outFile);
       appendConfig('logFile', logFile);
+      appendConfig('pidFile', pidFile);
       forever.startDaemon( index, config );
       log( 'Logs can be found at ' + logDir + '.' );
       done();
@@ -180,6 +182,7 @@ module.exports = function(grunt) {
       outFile = undefined !== this.options().outFile ? path.join(logDir, this.options().outFile) : outFile;
       errFile = undefined !== this.options().errFile ? path.join(logDir, this.options().errFile) : errFile;
       logFile = undefined !== this.options().logFile ? path.join(logDir, this.options().logFile) : logFile;
+      pidFile = undefined !== this.options().pidFile ? this.options().pidFile : pidFile;
       killSignal = this.options().killSignal || killSignal;
 
       try {
